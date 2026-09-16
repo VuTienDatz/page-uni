@@ -89,7 +89,7 @@ export default function Sidebar() {
   return (
     <div className="w-full bg-white border border-slate-200 shadow-sm rounded">
       {/* Header bar */}
-      <div className="bg-gradient-to-r from-red-700 to-red-600 px-3 py-2 text-white font-bold text-xs uppercase tracking-wider flex items-center gap-2">
+      <div className="bg-[#b91c1c] px-3 py-2 text-white font-bold text-xs uppercase tracking-wider flex items-center gap-2">
         <ListFilter className="w-3.5 h-3.5 text-amber-300" />
         <span>DANH MỤC TIỆN ÍCH</span>
       </div>

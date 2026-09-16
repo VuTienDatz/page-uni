@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { Home, ChevronDown, Search, Menu as MenuIcon, X, MapPin, Radio, Shield } from 'lucide-react';
+import { Home, ChevronDown, ChevronRight, Search, Menu as MenuIcon, X, MapPin, Radio, Shield } from 'lucide-react';
 
 const menuItems = [
   {
@@ -114,47 +114,54 @@ export default function Header() {
 
       {/* ===== NAVIGATION BAR (RED) ===== */}
       <nav className="relative z-40 bg-[#c41e24] border-b-2 border-red-800 shadow-md">
-        <div className="flex items-center justify-between px-2">
+        <div className="flex items-stretch justify-between px-2 h-11">
           {/* Left: Home Button + Menu Items */}
-          <div className="flex items-center flex-1 overflow-x-auto no-scrollbar">
+          <div className="flex items-stretch flex-1 overflow-visible">
             {/* Home Icon */}
             <Link
               href="/"
-              className="flex items-center justify-center w-11 h-11 bg-red-800 text-amber-300 hover:bg-red-900 transition-colors flex-shrink-0"
+              className="flex items-center justify-center w-11 h-full bg-red-900/50 text-amber-300 hover:bg-red-900 hover:text-amber-200 transition-colors flex-shrink-0 border-r border-red-700/60"
               title="Trang chủ"
             >
               <Home className="w-4 h-4" />
             </Link>
 
             {/* Desktop Menu */}
-            <ul className="hidden md:flex items-center text-white text-[13px] font-bold uppercase tracking-wider">
+            <ul className="hidden md:flex items-stretch text-white text-[13px] font-bold uppercase tracking-wider h-full">
               {menuItems.map((item) => (
                 <li
                   key={item.name}
-                  className="relative group"
+                  className="nav-menu-item"
                   onMouseEnter={() => setActiveDropdown(item.name)}
                   onMouseLeave={() => setActiveDropdown(null)}
                 >
                   <Link
                     href={item.href}
-                    className="flex items-center gap-1 px-3.5 py-3 hover:bg-red-800 transition-colors border-r border-red-500/40 text-white hover:text-amber-200"
+                    className="nav-menu-link"
                   >
                     <span>{item.name}</span>
                     {item.dropdown && (
-                      <ChevronDown className="w-3 h-3 text-amber-300 ml-0.5" />
+                      <ChevronDown className="w-3.5 h-3.5 nav-chevron" />
                     )}
+                    {/* Bottom active/hover indicator line */}
+                    <span className="nav-indicator" />
                   </Link>
 
                   {/* Dropdown menu */}
-                  {item.dropdown && activeDropdown === item.name && (
-                    <div className="absolute left-0 top-full w-56 bg-white rounded-b-md shadow-2xl border-t-2 border-amber-400 py-2 z-50 animate-fade-in">
+                  {item.dropdown && (
+                    <div
+                      className={`nav-dropdown-menu ${
+                        activeDropdown === item.name ? 'is-open' : ''
+                      }`}
+                    >
                       {item.dropdown.map((subItem) => (
                         <Link
                           key={subItem}
                           href={`${item.href}/${encodeURIComponent(subItem)}`}
-                          className="block px-4 py-2 text-xs font-semibold text-slate-700 hover:bg-red-50 hover:text-red-700 transition-colors border-b border-slate-100 last:border-0"
+                          className="nav-dropdown-link"
                         >
-                          {subItem}
+                          <span>{subItem}</span>
+                          <ChevronRight className="w-3.5 h-3.5 nav-sub-chevron flex-shrink-0" />
                         </Link>
                       ))}
                     </div>
@@ -165,15 +172,15 @@ export default function Header() {
           </div>
 
           {/* Right side: Search Box */}
-          <div className="hidden sm:flex items-center py-1.5 pl-2">
+          <div className="hidden sm:flex items-center pl-3">
             <div className="relative flex items-center">
               <input
                 type="text"
                 placeholder="Tìm kiếm..."
-                className="w-40 md:w-52 pl-3 pr-8 py-1 text-xs bg-white text-slate-800 rounded border border-red-300 focus:outline-none focus:ring-1 focus:ring-amber-400 placeholder:text-slate-400"
+                className="w-40 md:w-52 pl-3 pr-8 py-1.5 text-xs bg-white text-slate-800 rounded border border-red-300 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-amber-400 placeholder:text-slate-400 transition-all"
               />
               <button
-                className="absolute right-1 text-slate-500 hover:text-red-700 p-1"
+                className="absolute right-1 text-slate-500 hover:text-red-700 p-1 transition-colors"
                 aria-label="Tìm kiếm"
               >
                 <Search className="w-3.5 h-3.5" />
@@ -184,7 +191,7 @@ export default function Header() {
           {/* Mobile Menu Toggle Button */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="md:hidden p-2.5 text-white hover:bg-red-800"
+            className="md:hidden flex items-center justify-center w-11 h-full text-white hover:bg-red-900 transition-colors"
             aria-label="Menu"
           >
             {mobileOpen ? (

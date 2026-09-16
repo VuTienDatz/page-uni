@@ -1,8 +1,9 @@
 'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Building2, Flag, Globe, ChevronRight, Clock } from 'lucide-react';
+import { Building2, Flag, Globe, ChevronRight, Clock, Newspaper } from 'lucide-react';
 import { type NewsItem, formatDate } from '@/data/news';
 
 interface News3ColumnsProps {
@@ -11,41 +12,38 @@ interface News3ColumnsProps {
   theGioiNews: NewsItem[];
 }
 
-const fallbackThumbs = [
-  '/images/vietnam_students.jpg',
-  '/images/vietnam_classroom.jpg',
-  '/images/military_training.jpg',
-  '/images/telecom_radar.jpg',
-  '/images/award_stage.jpg',
-  '/images/news_domestic.jpg',
-  '/images/news_world.jpg',
-  '/images/volunteers_green.jpg',
-  '/images/sports_tournament.jpg',
-];
-
-function NewsRowItem({ item, idx, defaultImg }: { item: NewsItem; idx: number; defaultImg?: string }) {
-  const imgSrc = (item.image && item.image.startsWith('/images/') && !item.image.includes('hero-'))
-    ? item.image
-    : (defaultImg || fallbackThumbs[idx % fallbackThumbs.length]);
+function NewsRowItem({ item, defaultImg }: { item: NewsItem; idx?: number; defaultImg?: string }) {
+  const [imgError, setImgError] = useState(false);
+  const imageSource = item.image || defaultImg;
+  const hasImage = Boolean(imageSource && !imgError);
 
   return (
     <Link
       href={`/tin-tuc/${item.slug}`}
       className="group flex gap-2.5 py-2.5 border-b border-slate-100 last:border-0 hover:bg-slate-50 transition-colors rounded px-1"
     >
-      {/* Thumbnail box with real photo */}
-      <div className="w-24 h-16 sm:w-28 sm:h-18 rounded overflow-hidden flex-shrink-0 relative bg-slate-900 border border-slate-200">
-        <Image
-          src={imgSrc}
-          alt={item.title}
-          fill
-          sizes="120px"
-          className="object-cover group-hover:scale-110 transition-transform duration-300"
-        />
-        <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors" />
-        <span className="absolute bottom-1 right-1 px-1 bg-black/70 text-[8px] text-amber-300 rounded font-mono">
-          {item.views > 1000 ? `${(item.views / 1000).toFixed(1)}k` : item.views}
-        </span>
+      {/* Thumbnail box with photo or news icon */}
+      <div className="w-24 h-16 sm:w-28 sm:h-18 rounded overflow-hidden flex-shrink-0 relative bg-slate-100 border border-slate-200 flex items-center justify-center">
+        {hasImage && imageSource ? (
+          <>
+            <Image
+              src={imageSource}
+              alt={item.title}
+              fill
+              sizes="120px"
+              className="object-cover group-hover:scale-110 transition-transform duration-300"
+              onError={() => setImgError(true)}
+            />
+            <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors" />
+            <span className="absolute bottom-1 right-1 px-1 bg-black/70 text-[8px] text-amber-300 rounded font-mono">
+              {item.views > 1000 ? `${(item.views / 1000).toFixed(1)}k` : item.views}
+            </span>
+          </>
+        ) : (
+          <div className="w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center text-red-700 shadow-2xs group-hover:scale-110 transition-transform">
+            <Newspaper className="w-4 h-4" />
+          </div>
+        )}
       </div>
 
       {/* Content */}

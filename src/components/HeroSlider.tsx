@@ -43,7 +43,7 @@ const slides: SlideItem[] = [
     category: 'CÔNG TÁC ĐẢNG',
     date: '12/09/2024',
     views: 1620,
-    gradient: 'linear-gradient(135deg, #1e3a5f 0%, #0d5ea6 50%, #991b1b 100%)',
+    image: '/images/nhatrang_bay.jpg',
   },
   {
     id: 'hero-4',
@@ -52,7 +52,7 @@ const slides: SlideItem[] = [
     category: 'THI ĐUA',
     date: '10/09/2024',
     views: 2130,
-    gradient: 'linear-gradient(135deg, #881337 0%, #b91c1c 50%, #d97706 100%)',
+    image: '/images/hanoi_opera.jpg',
   },
 ];
 

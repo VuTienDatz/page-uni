@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Newspaper, Calendar, Eye } from 'lucide-react';
@@ -11,19 +12,9 @@ interface NewsCardProps {
   index?: number;
 }
 
-const fallbackImages = [
-  '/images/vietnam_students.jpg',
-  '/images/vietnam_classroom.jpg',
-  '/images/news_domestic.jpg',
-  '/images/military_training.jpg',
-  '/images/telecom_radar.jpg',
-  '/images/award_stage.jpg',
-];
-
 export default function NewsCard({ item, variant = 'default', index = 0 }: NewsCardProps) {
-  const imgSrc = item.image && item.image.startsWith('/images/') && !item.image.includes('hero-')
-    ? item.image
-    : fallbackImages[index % fallbackImages.length];
+  const [imgError, setImgError] = useState(false);
+  const hasImage = Boolean(item.image && !imgError);
 
   if (variant === 'horizontal') {
     return (
@@ -31,15 +22,22 @@ export default function NewsCard({ item, variant = 'default', index = 0 }: NewsC
         href={`/tin-tuc/${item.slug}`}
         className="news-card group flex gap-3.5 p-3 rounded-md bg-white hover:bg-slate-50/80 border border-slate-200 hover:border-red-400 hover:shadow-md transition-all"
       >
-        <div className="w-28 h-20 rounded overflow-hidden flex-shrink-0 relative bg-slate-900 border border-slate-200">
-          <Image
-            src={imgSrc}
-            alt={item.title}
-            fill
-            sizes="120px"
-            className="object-cover group-hover:scale-110 transition-transform duration-300"
-          />
-          <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors" />
+        <div className="w-28 h-20 rounded overflow-hidden flex-shrink-0 relative bg-slate-100 border border-slate-200 flex items-center justify-center">
+          {hasImage && item.image ? (
+            <Image
+              src={item.image}
+              alt={item.title}
+              fill
+              sizes="120px"
+              className="object-cover group-hover:scale-110 transition-transform duration-300"
+              onError={() => setImgError(true)}
+            />
+          ) : (
+            <div className="w-9 h-9 rounded-full bg-red-50 text-red-700 flex items-center justify-center shadow-2xs">
+              <Newspaper className="w-5 h-5" />
+            </div>
+          )}
+          <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors pointer-events-none" />
         </div>
         <div className="flex-1 min-w-0 flex flex-col justify-between">
           <h4 className="text-[13px] font-bold text-slate-800 line-clamp-2 group-hover:text-red-700 transition-colors leading-snug">
@@ -89,16 +87,30 @@ export default function NewsCard({ item, variant = 'default', index = 0 }: NewsC
         href={`/tin-tuc/${item.slug}`}
         className="news-card group block rounded-lg overflow-hidden bg-white border border-slate-200 hover:border-red-400 hover:shadow-md transition-all"
       >
-        <div className="relative h-52 overflow-hidden bg-slate-900">
-          <Image
-            src={imgSrc}
-            alt={item.title}
-            fill
-            sizes="(max-width: 768px) 100vw, 50vw"
-            className="object-cover group-hover:scale-108 transition-transform duration-500"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-          <span className="absolute top-3 left-3 px-2.5 py-1 rounded bg-red-700 text-white text-[10px] font-bold uppercase tracking-wider shadow-sm">
+        <div className="relative h-52 overflow-hidden bg-slate-100 border-b border-slate-200 flex items-center justify-center">
+          {hasImage && item.image ? (
+            <>
+              <Image
+                src={item.image}
+                alt={item.title}
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-cover group-hover:scale-108 transition-transform duration-500"
+                onError={() => setImgError(true)}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+            </>
+          ) : (
+            <div className="w-full h-full flex flex-col items-center justify-center bg-slate-100 text-slate-400 group-hover:bg-red-50/30 transition-colors">
+              <div className="w-14 h-14 rounded-full bg-white border border-slate-200 shadow-xs flex items-center justify-center text-red-700 mb-2 group-hover:scale-110 transition-transform">
+                <Newspaper className="w-7 h-7" />
+              </div>
+              <span className="text-[11px] font-bold text-slate-600 uppercase tracking-wider">
+                BẢN TIN TIÊU ĐIỂM
+              </span>
+            </div>
+          )}
+          <span className="absolute top-3 left-3 px-2.5 py-1 rounded bg-red-700 text-white text-[10px] font-bold uppercase tracking-wider shadow-sm z-10">
             {item.category}
           </span>
         </div>
@@ -128,16 +140,27 @@ export default function NewsCard({ item, variant = 'default', index = 0 }: NewsC
       href={`/tin-tuc/${item.slug}`}
       className="news-card group block rounded-lg overflow-hidden bg-white border border-slate-200 hover:border-red-400 hover:shadow-md transition-all"
     >
-      <div className="relative h-44 overflow-hidden bg-slate-900">
-        <Image
-          src={imgSrc}
-          alt={item.title}
-          fill
-          sizes="(max-width: 640px) 100vw, 33vw"
-          className="object-cover group-hover:scale-108 transition-transform duration-500"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-        <span className="absolute top-2.5 left-2.5 px-2 py-0.5 rounded bg-red-700 text-white text-[10px] font-bold uppercase tracking-wider shadow-sm">
+      <div className="relative h-44 overflow-hidden bg-slate-100 border-b border-slate-200 flex items-center justify-center">
+        {hasImage && item.image ? (
+          <Image
+            src={item.image}
+            alt={item.title}
+            fill
+            sizes="(max-width: 640px) 100vw, 33vw"
+            className="object-cover group-hover:scale-108 transition-transform duration-500"
+            onError={() => setImgError(true)}
+          />
+        ) : (
+          <div className="flex flex-col items-center justify-center text-slate-400">
+            <div className="w-12 h-12 rounded-full bg-white border border-slate-200 shadow-xs flex items-center justify-center text-red-700 mb-1 group-hover:scale-110 transition-transform">
+              <Newspaper className="w-6 h-6" />
+            </div>
+            <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">
+              TIN TỨC
+            </span>
+          </div>
+        )}
+        <span className="absolute top-2.5 left-2.5 px-2 py-0.5 rounded bg-red-700 text-white text-[10px] font-bold uppercase tracking-wider shadow-sm z-10">
           {item.category}
         </span>
       </div>

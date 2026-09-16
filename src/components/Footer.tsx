@@ -145,28 +145,23 @@ export default function Footer() {
       </div>
 
       {/* Visitor Counter Bar (Soft Slate) */}
-      <div className="bg-slate-100 border-b border-slate-200 px-5 py-2">
-        <div className="flex flex-wrap items-center justify-between text-[11px] text-slate-600 gap-3">
-          <div className="flex items-center gap-4">
-            <span className="flex items-center gap-1 font-medium">
-              <BarChart3 className="w-3.5 h-3.5 text-red-600" />
-              <span>Thống kê truy cập:</span>
-            </span>
-            <span className="text-slate-500">
-              Đang trực tuyến: <strong className="text-red-700 font-bold">128</strong>
-            </span>
-            <span>•</span>
-            <span className="text-slate-500">
-              Hôm nay: <strong className="text-slate-800 font-bold">4.520</strong>
-            </span>
-            <span>•</span>
-            <span className="text-slate-500">
-              Tổng lượt truy cập: <strong className="text-slate-900 font-bold">2.845.190</strong>
-            </span>
-          </div>
-          <div className="text-[10px] text-slate-500">
-            <span>Khuyến nghị trình duyệt Chrome, Edge, Firefox độ phân giải 1366x768 trở lên</span>
-          </div>
+      <div className="bg-slate-100 border-b border-slate-200 px-5 py-2.5">
+        <div className="flex flex-wrap items-center justify-center text-[11px] text-slate-600 gap-4 sm:gap-6">
+          <span className="flex items-center gap-1 font-semibold text-slate-700">
+            <BarChart3 className="w-3.5 h-3.5 text-red-600" />
+            <span>Thống kê truy cập:</span>
+          </span>
+          <span className="text-slate-600">
+            Đang trực tuyến: <strong className="text-red-700 font-bold">128</strong>
+          </span>
+          <span className="text-slate-300">•</span>
+          <span className="text-slate-600">
+            Hôm nay: <strong className="text-slate-800 font-bold">4.520</strong>
+          </span>
+          <span className="text-slate-300">•</span>
+          <span className="text-slate-600">
+            Tổng lượt truy cập: <strong className="text-slate-900 font-bold">2.845.190</strong>
+          </span>
         </div>
       </div>
 

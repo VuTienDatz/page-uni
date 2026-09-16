@@ -260,3 +260,124 @@ body {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+/* =========================================
+   HEADER NAVIGATION & DROPDOWN STYLING
+   ========================================= */
+.nav-menu-item {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: stretch;
+}
+
+.nav-menu-link {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 15px;
+  height: 100%;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-right: 1px solid rgba(255, 255, 255, 0.15);
+  transition: background-color 0.15s ease, color 0.15s ease;
+  position: relative;
+  user-select: none;
+}
+
+.nav-menu-item:hover .nav-menu-link {
+  background-color: #991b1b;
+  color: #fde047;
+}
+
+.nav-chevron {
+  transition: transform 0.2s ease, color 0.15s ease;
+}
+
+.nav-menu-item:hover .nav-chevron {
+  transform: rotate(180deg);
+  color: #fde047;
+}
+
+.nav-indicator {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background-color: #fde047;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  pointer-events: none;
+}
+
+.nav-menu-item:hover .nav-indicator {
+  opacity: 1;
+}
+
+.nav-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 250px;
+  background-color: #ffffff;
+  border-top: 3px solid #f59e0b;
+  border-radius: 0 0 6px 6px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.25), 0 8px 10px -6px rgba(0, 0, 0, 0.15);
+  padding: 6px 0;
+  z-index: 100;
+  display: none;
+}
+
+/* Invisible bridge so mouse never loses hover */
+.nav-dropdown-menu::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 0;
+  right: 0;
+  height: 8px;
+}
+
+.nav-menu-item:hover .nav-dropdown-menu,
+.nav-dropdown-menu.is-open {
+  display: block;
+}
+
+.nav-dropdown-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 9px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #334155;
+  border-bottom: 1px solid #f1f5f9;
+  transition: all 0.15s ease;
+  text-decoration: none;
+}
+
+.nav-dropdown-link:last-child {
+  border-bottom: none;
+}
+
+.nav-dropdown-link:hover {
+  background-color: #fef2f2;
+  color: #b91c1c;
+  padding-left: 20px;
+}
+
+.nav-sub-chevron {
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: all 0.15s ease;
+  color: #dc2626;
+}
+
+.nav-dropdown-link:hover .nav-sub-chevron {
+  opacity: 1;
+  transform: translateX(0);
+}
