@@ -49,10 +49,11 @@
 }
 
 body {
-  background: #f1f5f9 linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%) fixed;
+  background-color: #f4f6f9;
   color: var(--foreground);
   font-family: var(--font-be-vietnam), 'Be Vietnam Pro', Arial, sans-serif;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 /* Scrollbar */
