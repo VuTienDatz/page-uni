@@ -12,10 +12,12 @@ const beVietnamPro = Be_Vietnam_Pro({
 });
 
 export const metadata: Metadata = {
-  title: "Trường Sĩ Quan Thông Tin - Signal Officers Training College",
+  title: "Trường Đại học Thông tin liên lạc - Telecommunications University",
   description:
-    "Cổng thông tin điện tử Trường Sĩ Quan Thông Tin - Đào tạo sĩ quan thông tin liên lạc cho Quân đội Nhân dân Việt Nam",
+    "Cổng thông tin điện tử Trường Đại học Thông tin liên lạc (Trường Sĩ quan Thông tin) - Đào tạo sĩ quan, kỹ sư thông tin liên lạc và tác chiến không gian mạng cho Quân đội Nhân dân Việt Nam",
   keywords: [
+    "Trường Đại học Thông tin liên lạc",
+    "Telecommunications University",
     "Trường Sĩ Quan Thông Tin",
     "Signal Officers Training College",
     "quân đội",

@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { MapPin, Phone, Mail, Globe, ChevronRight, Shield, Award, Users, BarChart3 } from 'lucide-react';
 
 export default function Footer() {
@@ -11,25 +12,25 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6 lg:gap-8">
           {/* Col 1: School Identity & Address (6 cols) */}
           <div className="md:col-span-6 flex gap-4 items-start">
-            {/* School Crest Badge */}
-            <div className="w-16 h-20 rounded-lg bg-gradient-to-b from-red-600 via-red-700 to-red-900 border-2 border-amber-400 shadow-md flex flex-col items-center justify-center text-amber-300 flex-shrink-0 p-1">
-              <Shield className="w-7 h-7 text-amber-300" />
-              <span className="text-[8px] font-black text-white tracking-wider uppercase mt-1">
-                SQTT
-              </span>
-              <span className="text-[7px] font-bold text-amber-300 leading-none">
-                ★ ★ ★
-              </span>
+            {/* School Logo */}
+            <div className="relative w-16 h-22 sm:w-20 sm:h-28 flex-shrink-0">
+              <Image
+                src="/images/logo.png"
+                alt="Logo Trường Đại học Thông tin liên lạc"
+                fill
+                sizes="80px"
+                className="object-contain"
+              />
             </div>
 
             {/* School Details */}
             <div className="space-y-2 text-slate-700 text-xs">
               <div>
-                <h3 className="text-sm md:text-base font-black uppercase text-red-700 tracking-wide">
-                  TRƯỜNG SĨ QUAN THÔNG TIN
+                <h3 className="text-sm md:text-base font-black uppercase text-[#0a3254] tracking-wide">
+                  TRƯỜNG ĐẠI HỌC THÔNG TIN LIÊN LẠC
                 </h3>
-                <p className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
-                  SIGNAL OFFICERS TRAINING COLLEGE
+                <p className="text-[11px] font-extrabold text-[#f59e0b] uppercase tracking-wider">
+                  TELECOMMUNICATIONS UNIVERSITY
                 </p>
               </div>
 
@@ -165,13 +166,13 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Bottom Copyright Bar (Deep Red) */}
-      <div className="bg-[#b91c1c] text-white py-3 px-5 text-center">
-        <p className="text-xs font-bold text-amber-200">
-          © BẢN QUYỀN THUỘC VỀ TRƯỜNG SĨ QUAN THÔNG TIN - BINH CHỦNG THÔNG TIN LIÊN LẠC
+      {/* Bottom Copyright Bar */}
+      <div className="bg-[#122e54] text-white py-3 px-5 text-center">
+        <p className="text-xs font-bold text-amber-300">
+          © BẢN QUYỀN THUỘC VỀ TRƯỜNG ĐẠI HỌC THÔNG TIN LIÊN LẠC (SĨ QUAN THÔNG TIN) - BINH CHỦNG THÔNG TIN LIÊN LẠC
         </p>
         <p className="text-[11px] text-white/80 mt-0.5">
-          Ghi rõ nguồn &ldquo;Cổng thông tin điện tử Trường Sĩ quan Thông tin&rdquo; khi phát hành lại thông tin từ website này.
+          Ghi rõ nguồn &ldquo;Cổng thông tin điện tử Trường Đại học Thông tin liên lạc&rdquo; khi phát hành lại thông tin từ website này.
         </p>
       </div>
     </footer>
