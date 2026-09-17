@@ -1,36 +1,61 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Page Uni - Cổng thông tin đào tạo & hoạt động
 
-## Getting Started
+Dự án website trường đại học được xây dựng bằng **Next.js 16 (App Router)**, **React 19** và **Tailwind CSS v4**.
 
-First, run the development server:
+---
 
+## 🚀 Hướng dẫn khởi động dự án
+
+Dự án hỗ trợ 2 cách chạy: **Sử dụng Docker** (Khuyên dùng khi làm việc nhóm) hoặc **Chạy trực tiếp với Node.js**.
+
+---
+
+### Cách 1: Khuyên dùng - Chạy bằng Docker (Không lo lệch môi trường)
+
+Với Docker, người mới clone dự án về **không cần cài đặt Node.js**, không sợ lỗi thiếu `node_modules` hay xung đột phiên bản giữa Windows / macOS / Linux.
+
+#### 1. Yêu cầu
+- Đã cài đặt và đang mở **Docker Desktop** (hoặc Docker Engine).
+
+#### 2. Khởi động (Chế độ Dev có Hot-Reload)
+Tại thư mục dự án, chỉ cần chạy một lệnh duy nhất:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+docker compose up
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Mở trình duyệt truy cập: [http://localhost:3000](http://localhost:3000)
+- Mọi thay đổi code trên máy bạn sẽ tự động reload ngay lập tức trên trình duyệt.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+#### 3. Dừng chạy
+```bash
+docker compose down
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+*(Xem thêm các lệnh nâng cao như build production trong file [README.docker.md](./README.docker.md))*
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+### Cách 2: Chạy trực tiếp bằng Node.js (Local)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Nếu bạn không muốn dùng Docker:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+#### 1. Yêu cầu
+- Node.js version **>= 20.9.0** (Khuyến nghị **Node 22**).
 
-## Deploy on Vercel
+#### 2. Cài đặt thư viện
+```bash
+npm install
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+#### 3. Chạy môi trường dev
+```bash
+npm run dev
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Truy cập: [http://localhost:3000](http://localhost:3000)
+
+#### 4. Build kiểm tra sản phẩm
+```bash
+npm run build
+npm run start
+```
