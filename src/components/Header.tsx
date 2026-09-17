@@ -5,7 +5,18 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Home, ChevronDown, ChevronRight, Search, Menu as MenuIcon, X, MapPin, Radio } from 'lucide-react';
 
-const menuItems = [
+interface DropdownItem {
+  title: string;
+  href: string;
+}
+
+interface MenuItem {
+  name: string;
+  href: string;
+  dropdown?: (string | DropdownItem)[];
+}
+
+const menuItems: MenuItem[] = [
   {
     name: 'GIỚI THIỆU',
     href: '#gioi-thieu',
@@ -29,22 +40,46 @@ const menuItems = [
   },
   {
     name: 'ĐÀO TẠO',
-    href: '#dao-tao',
+    href: 'http://localhost:8086/chuong-trinh-dao-tao?flow=CHUONGTRINHFLOW',
     dropdown: [
-      'Đào tạo đại học quân sự',
-      'Đào tạo sau đại học',
-      'Chuẩn đầu ra',
-      'Kế hoạch giảng dạy',
+      {
+        title: 'Chương trình đào tạo',
+        href: 'http://localhost:8086/chuong-trinh-dao-tao?flow=CHUONGTRINHFLOW',
+      },
+      {
+        title: 'Danh sách giảng viên',
+        href: 'http://localhost:8086/giang-vien?size=20',
+      },
+      {
+        title: 'Danh sách học viên',
+        href: 'http://localhost:8086/hoc-vien?size=20',
+      },
+      {
+        title: 'Vật tư trang bị',
+        href: 'http://localhost:8086/vat-tu',
+      },
+      {
+        title: 'Kết quả học tập',
+        href: 'http://localhost:8086/bang-diem?codeData=DIEMTHANHPHAN',
+      },
     ],
   },
   {
     name: 'SINH VIÊN',
-    href: '#sinh-vien',
+    href: 'http://lms.sqtt.edu.vn/',
     dropdown: [
-      'Hoạt động học viên',
-      'Đoàn thanh niên',
-      'Hội thi - Hội thao',
-      'Gương sáng học viên',
+      {
+        title: 'Học tập trực tuyến',
+        href: 'http://lms.sqtt.edu.vn/',
+      },
+      {
+        title: 'Lớp học',
+        href: 'http://localhost:7003/hoc-tap/lop-tin-chi',
+      },
+      {
+        title: 'Lịch học',
+        href: 'http://localhost:7003/calendar',
+      },
     ],
   },
   {
@@ -182,16 +217,22 @@ export default function Header() {
                         activeDropdown === item.name ? 'is-open' : ''
                       }`}
                     >
-                      {item.dropdown.map((subItem) => (
-                        <Link
-                          key={subItem}
-                          href={`${item.href}/${encodeURIComponent(subItem)}`}
-                          className="nav-dropdown-link"
-                        >
-                          <span>{subItem}</span>
-                          <ChevronRight className="w-3.5 h-3.5 nav-sub-chevron flex-shrink-0" />
-                        </Link>
-                      ))}
+                      {item.dropdown.map((subItem, idx) => {
+                        const title = typeof subItem === 'string' ? subItem : subItem.title;
+                        const subHref = typeof subItem === 'string'
+                          ? `${item.href}/${encodeURIComponent(subItem)}`
+                          : subItem.href;
+                        return (
+                          <Link
+                            key={idx}
+                            href={subHref}
+                            className="nav-dropdown-link"
+                          >
+                            <span>{title}</span>
+                            <ChevronRight className="w-3.5 h-3.5 nav-sub-chevron flex-shrink-0" />
+                          </Link>
+                        );
+                      })}
                     </div>
                   )}
                 </li>
@@ -251,16 +292,22 @@ export default function Header() {
                 </Link>
                 {item.dropdown && (
                   <div className="pl-3 mt-1 space-y-1">
-                    {item.dropdown.map((sub) => (
-                      <Link
-                        key={sub}
-                        href="#"
-                        onClick={() => setMobileOpen(false)}
-                        className="block text-xs text-slate-300 py-0.5 hover:text-white"
-                      >
-                        • {sub}
-                      </Link>
-                    ))}
+                    {item.dropdown.map((sub, idx) => {
+                      const title = typeof sub === 'string' ? sub : sub.title;
+                      const subHref = typeof sub === 'string'
+                        ? `${item.href}/${encodeURIComponent(sub)}`
+                        : sub.href;
+                      return (
+                        <Link
+                          key={idx}
+                          href={subHref}
+                          onClick={() => setMobileOpen(false)}
+                          className="block text-xs text-slate-300 py-1 hover:text-white"
+                        >
+                          • {title}
+                        </Link>
+                      );
+                    })}
                   </div>
                 )}
               </div>
